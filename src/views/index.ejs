@@ -2,10 +2,52 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cloudy Store</title>
-</head>
-<body>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <style>
+        img {
+            margin-top: -25px;
+        }
 
+        .navbar {
+            height: 65px;
+            padding-top: 5px;
+            background-color: #262A37;
+        }
+    </style>
+
+    <title>Cloudy Web Store</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-inverse navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <img src= "cws.png" alt="CWS" width="85" height="70">
+            </a>
+
+            <ul class="nav navbar-nav">
+                <li><a href="https://github.com/B-Borecki/Cloudy-Web-Store" style="color: #FFFFFF;">GitHub</a></li>
+            </ul>
+            <form class="navbar-form navbar-right" action="/action_page.php">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" type="submit">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/login" style="color: #FF9C3A;"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                <li><a href="/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </body>
+</html>
