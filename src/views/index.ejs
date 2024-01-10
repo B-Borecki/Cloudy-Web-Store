@@ -5,15 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <style>
-        img {
+
+        .nav-img {
             margin-top: -25px;
         }
+        img {
+            margin-top: 20px;
+        }
+
 
         .navbar {
             height: 65px;
             padding-top: 5px;
             background-color: #262A37;
+            margin-bottom: 50px;
         }
+
+        .custom-card {
+            margin-top: 15px;
+            transition: box-shadow 0.3s; /* Dodaj płynne przejścia do efektu */
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Dodaj lekkie podświetlenie domyślne */
+            padding: 20px;
+            overflow: hidden;
+
+        }
+
+        .custom-card:hover {
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Dodaj efekt podświetlania przy najechaniu */
+        }
+
+        .box {
+            padding: 20px 25px 20px 25px;
+            width: 400px;
+        }
+
+        .mt-5 {
+            margin-top: 30px;
+            margin-left: 160px;
+        }
+
     </style>
 
     <title>Cloudy Web Store</title>
@@ -23,7 +53,7 @@
     <nav class="navbar navbar-inverse navbar-expand-lg">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">
-                <img src= "cws.png" alt="CWS" width="85" height="70">
+                <img class="nav-img" src= "cws.png" alt="CWS" width="85" height="70">
             </a>
 
             <ul class="nav navbar-nav">
@@ -45,6 +75,31 @@
             </ul>
         </div>
     </nav>
+
+    <p class="h1 text-center" style="font-weight: bold;"><%= search %></p>
+
+    <div class="container-fluid mt-5">
+        <% for (let i = 0; i < product_list.length; i += 4) { %>
+        <div class="row">
+            <% for (let j = i; j < i + 4 && j < product_list.length; j++) { %>
+            <div class="col-md-3 box">
+                <div class="card custom-card">
+                    <a href=<%= "/" + product_list[j].name %> class="card-link">
+                        <img class="card-img-top img-fluid" src=<%= imgs_path + product_list[j].name %> alt="" width="300" height="330">
+                    </a>
+                    <div class="card-body">
+                        <h5 class="card-title text-center">
+                            <a href=<%= "/" + product_list[j].name%> class="card-link" style="font-size: 2em; color: #FF9C3A;">
+                                <%= product_list[j].name %>
+                            </a>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+        </div>
+        <% } %>
+    </div>
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>

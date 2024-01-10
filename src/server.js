@@ -27,15 +27,16 @@ connection.connect((err) => {
 });
 
 app.get('/', (req, res) => {
-  res.render('index', { pageTitle: 'Cloudy Web Store' });
-
   const query = 'SELECT * FROM products';
   connection.query(query, (error, results, fields) => {
     if (error) {
       console.error('Błąd zapytania: ' + error.stack);
       return;
     }
-    console.log(results);
+
+    search = "All instances";
+    product_list = results;
+    res.render('index', {pageTitle: 'Cloudy Web Store', product_list: product_list, search: search, imgs_path: imgs_path});
   });
 });
 
