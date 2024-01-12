@@ -27,13 +27,13 @@ connection.connect((err) => {
 });
 
 app.get('/', (req, res) => {
+
   const query = 'SELECT * FROM products';
   connection.query(query, (error, results, fields) => {
     if (error) {
       console.error('Błąd zapytania: ' + error.stack);
       return;
     }
-
     search = "All instances";
     product_list = results;
     res.render('index', {pageTitle: 'Cloudy Web Store', product_list: product_list, search: search, imgs_path: imgs_path});
@@ -47,6 +47,20 @@ app.get('/login', (req, res) => {
 app.get('/register', (req, res) => {
   res.render('register', { pageTitle: 'Sign up' });
 });
+
+app.get('/search', (req, res) => {
+  var search = req.query.search;
+  const query = 'SELECT * FROM products WHERE LOWER(name) LIKE "%' + search.toLowerCase() + '%";';
+  connection.query(query, (error, results, fields) => {
+    if (error) {
+      console.error('Błąd zapytania: ' + error.stack);
+      return;
+    }
+    product_list = results;
+    res.render('index', {pageTitle: 'Cloudy Web Store', product_list: product_list, search: search, imgs_path: imgs_path});
+  });
+});
+
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);

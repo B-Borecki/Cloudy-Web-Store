@@ -59,9 +59,9 @@
             <ul class="nav navbar-nav">
                 <li><a href="https://github.com/B-Borecki/Cloudy-Web-Store" style="color: #FFFFFF;">GitHub</a></li>
             </ul>
-            <form class="navbar-form navbar-right" action="/action_page.php">
+            <form class="navbar-form navbar-right" action="/search">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search">
+                    <input type="text" name="search" class="form-control" placeholder="Search">
                     <div class="input-group-btn">
                         <button class="btn btn-default" type="submit">
                             <i class="glyphicon glyphicon-search"></i>
@@ -84,12 +84,12 @@
             <% for (let j = i; j < i + 4 && j < product_list.length; j++) { %>
             <div class="col-md-3 box">
                 <div class="card custom-card">
-                    <a href=<%= "/" + product_list[j].name %> class="card-link">
-                        <img class="card-img-top img-fluid" src=<%= imgs_path + product_list[j].name %> alt="" width="300" height="330">
+                    <a href=<%= "/products/" + product_list[j].ami_id %> class="card-link">
+                        <img class="card-img-top img-fluid" src=<%= imgs_path + product_list[j].ami_id %> alt="" width="300" height="330">
                     </a>
                     <div class="card-body">
                         <h5 class="card-title text-center">
-                            <a href=<%= "/" + product_list[j].name%> class="card-link" style="font-size: 2em; color: #FF9C3A;">
+                            <a href=<%= "/products/" + product_list[j].ami_id%> class="card-link" style="font-size: 2em; color: #FF9C3A;">
                                 <%= product_list[j].name %>
                             </a>
                         </h5>
