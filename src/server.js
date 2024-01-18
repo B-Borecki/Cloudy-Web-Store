@@ -3,13 +3,15 @@ const ejs = require('ejs');
 const mysql = require('mysql');
 //const AWS = require('aws-sdk');
 
+const register_route = require("./routes/register");
+const products_route = require("./routes/products");
+const login_route = require("./routes/login");
+
 const {db_endpoint, db_port, db_user, db_passwd, db, imgs_path} = require('./vars');
 
 const app = express();
 const port = 80;
 app.set("view engine", "ejs");
-app.use(express.static('views'));
-app.use(express.static('images'));
 
 const connection = mysql.createConnection({
   host: db_endpoint,
@@ -26,8 +28,15 @@ connection.connect((err) => {
   console.log("Połączono z bazą danych");
 });
 
-app.get('/', (req, res) => {
+app.use(express.static('views'));
+app.use(express.static('images'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use("/", register_route);
+app.use("/", products_route);
+app.use("/", login_route);
 
+app.get('/', (req, res) => {
   const query = 'SELECT * FROM products';
   connection.query(query, (error, results, fields) => {
     if (error) {
@@ -38,14 +47,6 @@ app.get('/', (req, res) => {
     product_list = results;
     res.render('index', {pageTitle: 'Cloudy Web Store', product_list: product_list, search: search, imgs_path: imgs_path});
   });
-});
-
-app.get('/login', (req, res) => {
-  res.render('login', { pageTitle: 'Sign in' });
-});
-
-app.get('/register', (req, res) => {
-  res.render('register', { pageTitle: 'Sign up' });
 });
 
 app.get('/search', (req, res) => {
@@ -60,21 +61,6 @@ app.get('/search', (req, res) => {
     res.render('index', {pageTitle: 'Cloudy Web Store', product_list: product_list, search: search, imgs_path: imgs_path});
   });
 });
-
-
-app.get('/products/:ami', (req, res) => {
-  ami_id = req.params.ami;
-  const query = 'SELECT * FROM products WHERE ami_id = "' + ami_id + '";';
-    connection.query(query, (error, results, fields) => {
-    if (error) {
-      console.error('Błąd zapytania: ' + error.stack);
-      return;
-    }
-    product = results[0];
-    res.render('product', {pageTitle: product.name, product : product, imgs_path: imgs_path});
-  });
-});
-
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);

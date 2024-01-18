@@ -4,10 +4,86 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <title>Sing in</title>
+  <title>Sing up</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+  <nav class="navbar navbar-inverse navbar-expand-lg">
+      <div class="container-fluid">
+          <a class="navbar-brand" href="/">
+              <img class="nav-img" src=<%= imgs_path + "cws.png" %> alt="CWS" width="85" height="70">
+          </a>
+
+          <ul class="nav navbar-nav">
+              <li><a href="https://github.com/B-Borecki/Cloudy-Web-Store" style="color: #FFFFFF;">GitHub</a></li>
+          </ul>
+          <form class="navbar-form navbar-right" action="/search">
+              <div class="input-group">
+                  <input type="text" name="search" class="form-control" placeholder="Search">
+                  <div class="input-group-btn">
+                      <button class="btn btn-default" type="submit">
+                          <i class="glyphicon glyphicon-search"></i>
+                      </button>
+                  </div>
+              </div>
+          </form>
+          <ul class="nav navbar-nav navbar-right">
+              <li><a href="/login" style="color: #FF9C3A;"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+              <li><a href="/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+          </ul>
+      </div>
+  </nav>
+
+  <div class="container registration-container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <h2>Create an account</h2>
+        <form action="/register" method="post">
+          <div class="form-group">
+            <label for="login">Login:</label>
+            <input type="text" class="form-control" id="login" name="login" required>
+          </div>
+          <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" class="form-control" id="password" name="password" required>
+          </div>
+          <div class="form-group">
+            <label for="confirmPassword">Confirm password:</label>
+            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" onkeyup="checkPassword()" required>
+            <p id="passwordMessage"></p>
+          </div>
+          <div class="form-group">
+            <label for="amiKey">AMI Key:</label>
+            <input type="text" class="form-control" id="amiKey" name="amiKey" required>
+          </div>
+          <div class="form-group">
+            <label for="amiSecretKey">AMI Secret Key:</label>
+            <input type="text" class="form-control" id="amiSecretKey" name="amiSecretKey" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Sign up</button>
+        </form>
+        <p class="mt-3" style="margin-top: 20px;">Already have an account? <a href="/login">Sign in</a></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function checkPassword() {
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+      const message = document.getElementById('passwordMessage');
+
+      if (password === confirmPassword) {
+        message.innerHTML = '';
+      } else {
+        message.innerHTML = 'Passwords do not match';
+        message.style.color = 'red';
+      }
+    }
+  </script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </body>
 </html>
