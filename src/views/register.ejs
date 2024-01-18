@@ -43,6 +43,18 @@
           <div class="form-group">
             <label for="login">Login:</label>
             <input type="text" class="form-control" id="login" name="login" required>
+            <% if (login_exists) { %>
+              <p id="loginMessage" style="color: red; margin-top: 5px;">
+              <%= loginMessage %>
+              <script>
+                document.getElementById('login').value = '';
+                document.getElementById('password').value = '';
+                document.getElementById('confirmPassword').value = '';
+                document.getElementById('access_key').value = '';
+                document.getElementById('secret_access_key').value = '';
+              </script>
+            </p>
+            <%}%>
           </div>
           <div class="form-group">
             <label for="password">Password:</label>
@@ -51,17 +63,29 @@
           <div class="form-group">
             <label for="confirmPassword">Confirm password:</label>
             <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" onkeyup="checkPassword()" required>
-            <p id="passwordMessage"></p>
+            <p id="passwordMessage" style="margin-top: 5px;"></p>
           </div>
           <div class="form-group">
-            <label for="amiKey">AMI Key:</label>
-            <input type="text" class="form-control" id="amiKey" name="amiKey" required>
+            <label for="access_key">AMI Key:</label>
+            <input type="text" class="form-control" id="access_key" name="access_key" required>
           </div>
           <div class="form-group">
-            <label for="amiSecretKey">AMI Secret Key:</label>
-            <input type="text" class="form-control" id="amiSecretKey" name="amiSecretKey" required>
+            <label for="secret_access_key">AMI Secret Key:</label>
+            <input type="text" class="form-control" id="secret_access_key" name="secret_access_key" required>
           </div>
           <button type="submit" class="btn btn-primary">Sign up</button>
+            <%if (!login_exists) {%>
+              <p id="loginMessage" style="color: green; margin-top: 5px;">
+              <%= loginMessage %>
+              <script>
+                document.getElementById('login').value = '';
+                document.getElementById('password').value = '';
+                document.getElementById('confirmPassword').value = '';
+                document.getElementById('access_key').value = '';
+                document.getElementById('secret_access_key').value = '';
+              </script>
+            </p>
+            <%}%>
         </form>
         <p class="mt-3" style="margin-top: 20px;">Already have an account? <a href="/login">Sign in</a></p>
       </div>
