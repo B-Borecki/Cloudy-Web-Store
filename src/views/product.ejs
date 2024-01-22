@@ -90,6 +90,9 @@
                 </div>
             </form>
             <ul class="nav navbar-nav navbar-right">
+                <% if (session.authorized) { %>
+                    <li><a style="color: #FFFFFF;">Welcome <%= session.user %></a></li>
+                <%}%>
                 <li><a href="/login" style="color: #FF9C3A;"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                 <li><a href="/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
             </ul>
@@ -107,7 +110,7 @@
         <p class="product-description"><%= product.description %></p>
         <div class="product-options">
           <label for="options">Choose instance type:</label>
-          <select class="form-control" id="options">
+          <select class="form-control" id="options" name="instance_type">
             <option value="t1.micro">t1.micro</option>
             <option value="t2.nano">t2.nano</option>
             <option value="t2.micro">t2.micro &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Free tier eligible</option>
@@ -133,7 +136,14 @@
         <% } else {%>
             <p class="product-price">Price: $<%= product.cost %></p>
         <%}%>
-        <button class="btn btn-primary buy-now-btn">Buy now</button>
+
+        <% if (session.authorized) {%>
+        <a href="/buy" class="btn btn-primary buy-now-btn">Buy now</a>
+        <%}%>
+
+        <% else {%>
+        <a href="/login" class="btn btn-primary buy-now-btn">Buy now</a>
+        <%}%>
       </div>
     </div>
   </div>

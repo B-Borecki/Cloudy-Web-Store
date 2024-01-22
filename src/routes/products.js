@@ -13,8 +13,14 @@ router.get('/products/:ami', (req, res) => {
       return;
     }
     product = results[0];
-    res.render('product', {pageTitle: product.name, product : product, imgs_path: imgs_path});
+    res.render('product', {pageTitle: product.name, product : product, imgs_path: imgs_path, session: req.session});
   });
+});
+
+router.post('/buy', (req, res) => {
+  console.log(req.body.instance_type);
+
+
 });
 
 module.exports = router;

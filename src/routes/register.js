@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.get('/register', (req, res) => {
   var login_exists = 0;
-  res.render('register', { pageTitle: 'Sign up', loginMessage: '', login_exists: 0});
+  res.render('register', { pageTitle: 'Sign up', loginMessage: '', login_exists: 0, session: req.session});
 });
 
 router.post('/register', (req, res) => {
@@ -18,7 +18,7 @@ router.post('/register', (req, res) => {
       return res.status(500).send('Internal Server Error');
     }
     if (results.length > 0) {
-      return res.render('register', { loginMessage: 'Account with this login already exists', login_exists: 1});
+      return res.render('register', { loginMessage: 'Account with this login already exists', login_exists: 1, session: req.session});
     }
     var hash = crypto.createHash('sha256' ,password).digest('base64');
     const query = `INSERT INTO users (login, password, access_key, secret_access_key) VALUES ('${login}', '${hash}', '${access_key}', '${secret_access_key}');`;
@@ -27,7 +27,7 @@ router.post('/register', (req, res) => {
         console.error('Query error: ' + error.stack);
         return res.status(500).send('Internal Server Error');
       }
-      res.render('register', { loginMessage: 'User successfully created', login_exists: 0});
+      res.render('register', { loginMessage: 'User successfully created', login_exists: 0, session: req.session});
     });
   });
 });

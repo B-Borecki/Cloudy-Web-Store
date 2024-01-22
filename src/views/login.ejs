@@ -28,6 +28,9 @@
               </div>
           </form>
           <ul class="nav navbar-nav navbar-right">
+              <% if (session.authorized) { %>
+                <li><a style="color: #FFFFFF;">Welcome <%= session.user %></a></li>
+              <%}%>
               <li><a href="/login" style="color: #FF9C3A;"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
               <li><a href="/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
           </ul>

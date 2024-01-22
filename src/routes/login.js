@@ -1,11 +1,12 @@
 const express = require("express");
 const connection = require("../db.js");
-var crypto = require('crypto');
+const crypto = require("crypto");
+const session = require("express-session");
 
 const router = express.Router();
 
 router.get('/login', (req, res) => {
-  res.render('login', { pageTitle: 'Sign in', loginMessage: "", login_exists:10});
+  res.render('login', { pageTitle: 'Sign in', loginMessage: "", login_exists:1, session: req.session});
 });
 
 router.post('/login', (req, res) => {
@@ -17,9 +18,11 @@ router.post('/login', (req, res) => {
       return res.status(500).send('Internal Server Error');
     }
     if (results.length == 0 || results[0].password != crypto.createHash('sha256' ,password).digest('base64')) {
-      return res.render('login', { loginMessage: 'Incorrect login or password', login_exists: 0});
+      return res.render('login', { loginMessage: 'Incorrect login or password', login_exists: 0, session: req.session});
     }
-      res.render('login', { loginMessage: 'Successfully logged in', login_exists: 1});
+    req.session.user = login;
+    req.session.authorized = true;
+    res.render('login', { loginMessage: 'Successfully logged in', login_exists: 1, session: req.session});
   });
 });
 
