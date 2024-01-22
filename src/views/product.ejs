@@ -108,42 +108,46 @@
         <h1 class="product-title"><%= product.name %></h1>
         <hr>
         <p class="product-description"><%= product.description %></p>
-        <div class="product-options">
-          <label for="options">Choose instance type:</label>
-          <select class="form-control" id="options" name="instance_type">
-            <option value="t1.micro">t1.micro</option>
-            <option value="t2.nano">t2.nano</option>
-            <option value="t2.micro">t2.micro &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Free tier eligible</option>
-            <option value="t2.small">t2.small</option>
-            <option value="t2.medium">t2.medium</option>
-            <option value="t2.large">t2.large</option>
-            <option value="t2.xlarge">t2.xlarge</option>
-            <option value="t2.2xlarge">t2.2xlarge</option>
-            <option value="t3.nano">t3.nano</option>
-            <option value="t3.micro">t3.micro</option>
-            <option value="t3.small">t3.small</option>
-            <option value="t3.medium">t3.medium</option>
-            <option value="t3.large">t3.large</option>
-            <option value="t3.xlarge">t3.xlarge</option>
-            <option value="t3.2xlarge">t3.2xlarge</option>
-          </select>
-        </div>
-        <% if (product.free_tier) { %>
-            <div class="free-tier-eligible">
-                Free tier eligible
+          <form action="/buy" method="POST">
+            <div class="product-options">
+            <label for="options">Choose instance type:</label>
+            <select class="form-control" id="options" name="instance_type">
+                <option value="t1.micro">t1.micro</option>
+                <option value="t2.nano">t2.nano</option>
+                <option value="t2.micro">t2.micro &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Free tier eligible</option>
+                <option value="t2.small">t2.small</option>
+                <option value="t2.medium">t2.medium</option>
+                <option value="t2.large">t2.large</option>
+                <option value="t2.xlarge">t2.xlarge</option>
+                <option value="t2.2xlarge">t2.2xlarge</option>
+                <option value="t3.nano">t3.nano</option>
+                <option value="t3.micro">t3.micro</option>
+                <option value="t3.small">t3.small</option>
+                <option value="t3.medium">t3.medium</option>
+                <option value="t3.large">t3.large</option>
+                <option value="t3.xlarge">t3.xlarge</option>
+                <option value="t3.2xlarge">t3.2xlarge</option>
+            </select>
             </div>
-            <br>
-        <% } else {%>
-            <p class="product-price">Price: $<%= product.cost %></p>
-        <%}%>
+            <input type="hidden" name="ami_id" value='<%= product.ami_id %>'>
+            <% if (product.free_tier) { %>
+                <div class="free-tier-eligible">
+                    Free tier eligible
+                </div>
+                <br>
+            <%} else {%>
+                <p class="product-price">Price: $<%= product.cost %></p>
+            <%}%>
 
-        <% if (session.authorized) {%>
-        <a href="/buy" class="btn btn-primary buy-now-btn">Buy now</a>
-        <%}%>
-
-        <% else {%>
-        <a href="/login" class="btn btn-primary buy-now-btn">Buy now</a>
-        <%}%>
+            <% if (session.authorized) {%>
+                <script>
+                    var name = <%= product.name %>;
+                </script>
+                <button type="submit" class="btn btn-primary buy-now-btn">Buy now</button>
+            <%} else {%>
+                <a href="/login" class="btn btn-primary buy-now-btn">Buy now</a>
+            <%}%>
+          </form>
       </div>
     </div>
   </div>

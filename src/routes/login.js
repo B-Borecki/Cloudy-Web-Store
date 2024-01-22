@@ -17,10 +17,12 @@ router.post('/login', (req, res) => {
       console.error(error);
       return res.status(500).send('Internal Server Error');
     }
-    if (results.length == 0 || results[0].password != crypto.createHash('sha256' ,password).digest('base64')) {
+    if (results.length == 0 || results[0].password != crypto.createHash('sha256').update(password).digest('base64')) {
       return res.render('login', { loginMessage: 'Incorrect login or password', login_exists: 0, session: req.session});
     }
     req.session.user = login;
+    req.session.access_key = results[0].access_key;
+    req.session.secret_access_key = results[0].secret_access_key;
     req.session.authorized = true;
     res.render('login', { loginMessage: 'Successfully logged in', login_exists: 1, session: req.session});
   });
