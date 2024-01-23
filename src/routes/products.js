@@ -9,13 +9,13 @@ const router = express.Router();
 router.get('/products/:ami', (req, res) => {
   ami_id = req.params.ami;
   const query = 'SELECT * FROM products WHERE ami_id = "' + ami_id + '";';
-    connection.query(query, (error, results, fields) => {
+  connection.query(query, (error, results, fields) => {
     if (error) {
       console.error('Query error: ' + error.stack);
       return;
     }
     product = results[0];
-    res.render('product', {pageTitle: product.name, product : product, imgs_path: imgs_path, session: req.session});
+    res.render('product', {pageTitle: product.name, product : product, imgs_path: imgs_path, session: req.session, bought: req.query.bought});
   });
 });
 
@@ -28,10 +28,21 @@ router.post('/buy', (req, res) => {
   });
   const ec2 = new AWS.EC2();
   const params = {
-    ImageId: ami_id,
+    ImageId: "ami-" + ami_id,
     InstanceType: instance_type,
     MinCount: 1,
     MaxCount: 1,
+    TagSpecifications: [
+        {
+          ResourceType: 'instance',
+          Tags: [
+            {
+              Key: 'Name',
+              Value: 'CWS-'+ ami_id
+            }
+          ]
+        }
+      ]
   };
 
   ec2.runInstances(params, (err, data) => {
@@ -39,11 +50,9 @@ router.post('/buy', (req, res) => {
       console.error('Error creating EC2 instance', err);
       return res.status(500).send('Internal Server Error');
     } else {
-      res.render('index', {pageTitle: 'Cloudy Web Store', product_list: product_list, search: search, imgs_path: imgs_path, session: req.session});
+      res.redirect('/products/' + ami_id + '?bought=true');
     }
   });
-
-
 });
 
 module.exports = router;

@@ -26,6 +26,7 @@ app.use(session({
   resave: true,
   saveUninitialized: true
 }))
+
 app.use("/", register_route);
 app.use("/", products_route);
 app.use("/", login_route);
@@ -59,4 +60,3 @@ app.get('/search', (req, res) => {
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
-
