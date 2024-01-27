@@ -1,2 +1,3 @@
 node_modules/
-vars.js
+my-vars.js
+#vars.js

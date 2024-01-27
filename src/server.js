@@ -10,11 +10,11 @@ const login_route = require("./routes/login");
 
 
 const app = express();
-const port = 80;
+const port = 8080;
+app.set('views', __dirname + '/views');
 app.set("view engine", "ejs");
 
 app.use(express.static('views'));
-app.use(express.static('images'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(session({
