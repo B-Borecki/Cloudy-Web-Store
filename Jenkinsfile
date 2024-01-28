@@ -2,6 +2,16 @@ pipeline {
     agent any
 
     stages {
+
+        stage('checkout') {
+                steps {
+                        script {
+                            git branch:"main",
+                                credentialsId: "CWS-github-key",
+                                url: "git@github.com:B-Borecki/Cloudy-Web-Store.git"
+                        }
+                }
+        }
         stage('Build') {
             steps {
                 sh 'rm -f cws.zip'
