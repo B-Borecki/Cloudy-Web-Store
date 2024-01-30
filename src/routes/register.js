@@ -1,12 +1,13 @@
 const express = require("express");
 const connection = require("../db.js");
 var crypto = require('crypto');
+const {db_endpoint, db_port, db_user, db_passwd, db, imgs_path} = require('../vars');
 
 const router = express.Router();
 
 router.get('/register', (req, res) => {
   var login_exists = 0;
-  res.render('register', { pageTitle: 'Sign up', loginMessage: '', login_exists: 0, session: req.session});
+  res.render('register', { pageTitle: 'Sign up', loginMessage: '', login_exists: 0, session: req.session, imgs_path: imgs_path});
 });
 
 router.post('/register', (req, res) => {
@@ -18,7 +19,7 @@ router.post('/register', (req, res) => {
       return res.status(500).send('Internal Server Error');
     }
     if (results.length > 0) {
-      return res.render('register', { loginMessage: 'Account with this login already exists', login_exists: 1, session: req.session});
+      return res.render('register', { loginMessage: 'Account with this login already exists', login_exists: 1, session: req.session, imgs_path: imgs_path});
     }
 
     var hash = crypto.createHash('sha256').update(password).digest('base64');
@@ -29,7 +30,7 @@ router.post('/register', (req, res) => {
         console.error('Query error: ' + error.stack);
         return res.status(500).send('Internal Server Error');
       }
-      res.render('register', { loginMessage: 'User successfully created', login_exists: 0, session: req.session});
+      res.render('register', { loginMessage: 'User successfully created', login_exists: 0, session: req.session, imgs_path: imgs_path});
     });
   });
 });
