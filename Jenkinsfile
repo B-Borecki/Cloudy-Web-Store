@@ -35,7 +35,7 @@ pipeline {
         stage("Upload") {
             steps{
                 withAWS(region:"us-east-1") {
-                    s3Upload(file:"cws.zip", bucket:"$bucket", path:"/")
+                    s3Upload(file:"cws.zip", bucket:"$bucket", path:"")
                 }
             }
         }
