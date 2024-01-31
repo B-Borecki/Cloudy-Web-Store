@@ -1,14 +1,15 @@
 # Cloudy Web Store
 
-## Online shop where you can buy AWS EC2 instances
+### Online shop where you can buy AWS EC2 instances
 
-There is no need to create an instance in this store, because it works like creating an instance in AWS.
-CWS is only a simulation but if someone registers to CWS with the correct IAM access keys, the store will work and it will create an instance in proper AWS account
+There is no need to buy an instance in this store, because it works like creating an instance in AWS.
+CWS is only a simulation but if someone will register to it with the correct IAM access keys, the store will work and it will create an instance in proper AWS account
 
-**CWS is my sandbox to play with implementing it to the cloud, using multiple AWS services, creating CI/CD pipelines and CWS is perfect for this.**
-Code is written in express js, so it is running in the node.js environment.
+**CWS is my sandbox to play with implementing it to the cloud, using multiple AWS services, creating CI/CD pipelines and it is perfect project for this.**
+Code is written in Express.js, so it is running in the node.js environment.
 
 ## SETUP
+### In the future I will create an Ansible playbook that will take care of various configurations, for now it has to be done manually.
 In /src/vars.json there are variables:
 - "db_endpoint": database URL or IP
 - "db_port": database port 
